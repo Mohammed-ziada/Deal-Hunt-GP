@@ -1,0 +1,23 @@
+/* Color scheme */
+:root {
+  --bg-main: #e54666;
+  --text-main: #e54666;
+}
+.bg-main {
+  background-color: var(--bg-main);
+}
+.text-main {
+  color: var(--text-main) !important;
+}
+.bg-ruby-12 {
+  background-color: #64172b;
+}
+.text-ruby-12 {
+  color: #64172b !important;
+}
+.bg-ruby-9 {
+  background-color: #e54666;
+}
+.text-ruby-9 {
+  color: #e54666 !important;
+}
