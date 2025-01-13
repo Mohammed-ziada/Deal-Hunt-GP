@@ -1,343 +1,30 @@
-// import {
-//   Typography,
-//   Col,
-//   Row,
-//   Breadcrumb,
-//   Input,
-//   Button,
-//   Divider,
-// } from 'antd';
-// import CartProduct from '../components/CartProduct/CartProduct';
-// import { Link } from 'react-router-dom';
-
-// export default function Cart() {
-//   const { Title, Text } = Typography;
-
-// return (
-//   <Row className="p-4">
-//     {/* Breadcrumb Section */}
-//     <Col span={24}>
-//       <Breadcrumb className="m-3 p-3" separator=">">
-//         <Breadcrumb.Item href="/">
-//           <span>Home</span>
-//         </Breadcrumb.Item>
-//         <Breadcrumb.Item href="/news">
-//           <span>News</span>
-//         </Breadcrumb.Item>
-//       </Breadcrumb>
-//     </Col>
-
-//     {/* Main Content: Cart Items + Order Summary */}
-//     <Col span={24}>
-//       <Row gutter={[16, 16]}>
-//         {/* Cart Items Section */}
-//         <Col xs={24} md={18} className="p-4">
-//           <Title level={4}>
-//             Cart <Text className="text-lg" type="secondary">(3 items)</Text>
-//           </Title>
-//           <Row gutter={[16, 16]}>
-//             <Col span={24}>
-//               <CartProduct />
-//               <CartProduct />
-//               <CartProduct />
-//             </Col>
-//           </Row>
-//         </Col>
-
-//         {/* Order Summary Section */}
-//         <Col
-//           xs={24}
-//           md={6}
-//           className="p-4 border border-gray-200 rounded-md bg-white self-start"
-//         >
-//           <Row gutter={[16, 16]}>
-//             <Col span={24}>
-//               <Title level={4}>Order Summary</Title>
-//             </Col>
-
-//             {/* Coupon Input */}
-//             <Col span={24}>
-//               <Input
-//                 placeholder="Coupon Code"
-//                 suffix={
-//                   <Button
-//                     className="bg-main hover:bg-slate-900 text-white font-semibold px-3 rounded-md transition-colors duration-300 !important"
-//                   >
-//                     Apply
-//                   </Button>
-//                 }
-//                 className="rounded-md"
-//               />
-//             </Col>
-
-//             {/* Summary Items */}
-//             <Col span={24} className="my-4">
-//               <Row className="p-3">
-//                 {/* Subtotal Section */}
-//                 <Col span={24} className="my-2">
-//                   <Row align="middle" gutter={[8, 8]}>
-//                     <Col xs={12} sm={8}>
-//                       <Text type="secondary" className="text-base sm:text-lg">
-//                         Subtotal
-//                       </Text>
-//                     </Col>
-//                     <Col xs={12} sm={8} offset={4} className="text-right">
-//                       <Text type="secondary" className="text-base sm:text-lg">
-//                         EGP <span className="text-gray-500 font-medium">128</span>
-//                       </Text>
-//                     </Col>
-//                   </Row>
-//                 </Col>
-
-//                 {/* Shipping Section */}
-//                 <Col span={24} className="my-2">
-//                   <Row align="middle" gutter={[8, 8]}>
-//                     <Col xs={12} sm={8}>
-//                       <Text type="secondary" className="text-base sm:text-lg">
-//                         Shipping
-//                       </Text>
-//                     </Col>
-//                     <Col xs={12} sm={8} offset={4} className="text-right">
-//                       <Text type="secondary" className="text-base sm:text-lg">
-//                         EGP <span className="text-gray-500 font-medium">32</span>
-//                       </Text>
-//                     </Col>
-//                   </Row>
-//                 </Col>
-
-//                 <Divider />
-
-//                 {/* Total Section */}
-//                 <Col span={24}>
-//                   <Row align="middle" gutter={[8, 8]}>
-//                     <Col xs={12}>
-//                       <Title level={4} className="text-base sm:text-xl">
-//                         Total <Text type="secondary">(Including VAT)</Text>
-//                       </Title>
-//                     </Col>
-//                     <Col xs={12} className="text-right">
-//                       <Text className="text-main text-lg sm:text-xl font-bold">
-//                         <Text className="p-2" type="secondary">
-//                           EGP
-//                         </Text>
-//                         620.00
-//                       </Text>
-//                     </Col>
-
-//                     {/* Checkout Button */}
-//                     <Col span={24} className="mt-4">
-
-//                       <Link to='/checkOut'
-
-//                       >
-//                         <Button
-//                           size="large"
-//                           className="w-full  bg-main text-white hover:bg-slate-900 transition-colors duration-300"
-//                         >
-//                           Checkout
-//                         </Button>
-
-//                       </Link >
-//                     </Col>
-//                   </Row>
-//                 </Col>
-//               </Row>
-//             </Col>
-//           </Row>
-//         </Col>
-//       </Row>
-//     </Col>
-//   </Row>
-// );
-// }
-// pages/Cart.js
-
-// import { Breadcrumb, Col, Row } from 'antd';
-// import { useCart } from '../app/CartContext';
-// import CartProduct from '../components/CartProduct/CartProduct';
-
-// export default function Cart() {
-//   const { cart, removeFromCart, updateQuantity } = useCart();
-
-//   return (
-
-//   <div className="p-4">
-//       <h2>Your Cart</h2>
-//       {cart.length > 0 ? (
-//         cart.map(product => (
-//           <CartProduct
-//             key={product.id}
-//             product={product}
-//             removeProduct={removeFromCart}
-//             updateQuantity={updateQuantity}
-//           />
-//         ))
-//       ) : (
-//         <p>Your cart is empty.</p>
-//       )}
-//     </div>
-
-//   );
-// }
-// import { Breadcrumb, Col, Row, Typography, Input, Button, Divider } from 'antd';
-// import { useCart } from '../app/CartContext';
-// import CartProduct from '../components/CartProduct/CartProduct';
-// import { Link } from 'react-router-dom';
-
-// export default function Cart() {
-//   const { cart, removeFromCart, updateQuantity } = useCart();
-//   const { Title, Text } = Typography;
-
-//   return (
-//     <Row className="p-4">
-//       {/* Breadcrumb Section */}
-//       <Col span={24}>
-//         <Breadcrumb className="m-3 p-3" separator=">">
-//           <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-//           <Breadcrumb.Item href="/cart">Cart</Breadcrumb.Item>
-//         </Breadcrumb>
-//       </Col>
-
-//       {/* Cart Items Section */}
-//       <Col xs={24} md={18} className="p-4">
-//         <Title level={4}>
-//           Cart <Text className="text-lg" type="secondary">({cart.length} items)</Text>
-//         </Title>
-//         <Row gutter={[16, 16]}>
-//           <Col span={24}>
-//             {cart.length > 0 ? (
-//               cart.map((product) => (
-//                 <CartProduct
-//                   key={product.id}
-//                   product={product}
-//                   removeProduct={removeFromCart}
-//                   updateQuantity={updateQuantity}
-//                 />
-//               ))
-//             ) : (
-//               <p>Your cart is empty.</p>
-//             )}
-//           </Col>
-//         </Row>
-//       </Col>
-
-//       {/* Order Summary Section */}
-//       <Col xs={24} md={6} className="p-4 border border-gray-200 rounded-md bg-white self-start">
-//         <Row gutter={[16, 16]}>
-//           <Col span={24}>
-//             <Title level={4}>Order Summary</Title>
-//           </Col>
-
-//           {/* Coupon Input */}
-//           <Col span={24}>
-//             <Input
-//               placeholder="Coupon Code"
-//               suffix={
-//                 <Button className="bg-main hover:bg-slate-900 text-white font-semibold px-3 rounded-md transition-colors duration-300">
-//                   Apply
-//                 </Button>
-//               }
-//               className="rounded-md"
-//             />
-//           </Col>
-
-//           {/* Summary Items */}
-//           <Col span={24} className="my-4">
-//             <Row className="p-3">
-//               {/* Subtotal Section */}
-//               <Col span={24} className="my-2">
-//                 <Row align="middle" gutter={[8, 8]}>
-//                   <Col xs={12} sm={8}>
-//                     <Text type="secondary" className="text-base sm:text-lg">
-//                       Subtotal
-//                     </Text>
-//                   </Col>
-//                   <Col xs={12} sm={8} offset={4} className="text-right">
-//                     <Text type="secondary" className="text-base sm:text-lg">
-//                       EGP <span className="text-gray-500 font-medium">128</span>
-//                     </Text>
-//                   </Col>
-//                 </Row>
-//               </Col>
-
-//               {/* Shipping Section */}
-//               <Col span={24} className="my-2">
-//                 <Row align="middle" gutter={[8, 8]}>
-//                   <Col xs={12} sm={8}>
-//                     <Text type="secondary" className="text-base sm:text-lg">
-//                       Shipping
-//                     </Text>
-//                   </Col>
-//                   <Col xs={12} sm={8} offset={4} className="text-right">
-//                     <Text type="secondary" className="text-base sm:text-lg">
-//                       EGP <span className="text-gray-500 font-medium">32</span>
-//                     </Text>
-//                   </Col>
-//                 </Row>
-//               </Col>
-
-//               <Divider />
-
-//               {/* Total Section */}
-//               <Col span={24}>
-//                 <Row align="middle" gutter={[8, 8]}>
-//                   <Col xs={12}>
-//                     <Title level={4} className="text-base sm:text-xl">
-//                       Total <Text type="secondary">(Including VAT)</Text>
-//                     </Title>
-//                   </Col>
-//                   <Col xs={12} className="text-right">
-//                     <Text className="text-main text-lg sm:text-xl font-bold">
-//                       <Text className="p-2" type="secondary">
-//                         EGP
-//                       </Text>
-//                       620.00
-//                     </Text>
-//                   </Col>
-
-//                   {/* Checkout Button */}
-//                   <Col span={24} className="mt-4">
-//                     <Link to="/checkOut">
-//                       <Button
-//                         size="large"
-//                         className="w-full bg-main text-white hover:bg-slate-900 transition-colors duration-300"
-//                       >
-//                         Checkout
-//                       </Button>
-//                     </Link>
-//                   </Col>
-//                 </Row>
-//               </Col>
-//             </Row>
-//           </Col>
-//         </Row>
-//       </Col>
-//     </Row>
-//   );
-// }
 import {
-  Col,
-  Row,
-  Typography,
-  Input,
-  Button,
-  Divider,
   Spin,
   message,
+  Input,
+  Button,
+  Row,
+  Col,
+  Typography,
+  Divider,
 } from "antd";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../app/CartContext";
 import CartProduct from "../components/CartProduct/CartProduct";
-import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { makeOrder } from "../components/CartProduct/MakeOrder"; // Assuming this is the function to make an order
 import { useEffect, useState } from "react";
+import { CheckCircle, XCircle } from "lucide-react";
+import Modal from "../components/shared/Modal";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function Cart() {
-  const { cart, removeFromCart, updateQuantity, isLoading, applyCoupon } =
+const Cart = () => {
+  const { cart, removeFromCart, updateQuantity, isLoading, setCart } =
     useCart();
   const { Title, Text } = Typography;
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // useNavigate inside component
   const [couponCode, setCouponCode] = useState("");
-
+  const [modalVisible, setModalVisible] = useState(false); // For modal visibility
+  const [modalContent, setModalContent] = useState(""); // For modal content
   // Check if user is logged in
   const isLoggedIn = Boolean(localStorage.getItem("token"));
 
@@ -370,17 +57,59 @@ export default function Cart() {
       message.warning("Please enter a valid coupon code.");
       return;
     }
-    applyCoupon(couponCode);
     setCouponCode(""); // Clear input after applying
   };
 
+  // Pass navigate to makeOrder
+
+  const handleOrder = async () => {
+    let response;
+
+    try {
+      // استدعاء makeOrder وتخزين الاستجابة في response
+      response = await makeOrder(cart, navigate);
+      toast.promise(makeOrder(cart, navigate), {
+        loading: "Redirecting to Home...",
+        success: <b>Order placed successfully!</b>,
+        error: <b>Failed to place the order.</b>,
+      });
+      // إذا كانت الاستجابة ناجحة، نقوم بتحديث المودال
+      setModalContent(
+        <div className="flex flex-col items-center">
+          <CheckCircle className="text-green-500 w-12 h-12 mb-4" />
+          <span className="text-center">Order done successfully!</span>
+        </div>
+      );
+
+      // بعد عرض المودال بنجاح، انتظر 2 ثانية ثم قم بإغلاق المودال والانتقال إلى الصفحة الرئيسية
+      setTimeout(() => {
+        setModalVisible(false);
+        navigate("/"); // إعادة التوجيه إلى الصفحة الرئيسية بعد 2 ثانية
+      }, 2000);
+
+      setCart([]); // تفريغ الكارت بعد النجاح
+    } catch (error) {
+      // في حالة حدوث خطأ، نقوم بتحديث المودال مع رسالة فشل
+      console.error("Error while placing the order:", error);
+      setModalContent(
+        <div className="flex flex-col items-center">
+          <XCircle className="text-red-500 w-12 h-12 mb-4" />
+          <span className="text-center">Failed to place the order.</span>
+        </div>
+      );
+
+      // عرض المودال مع الرسالة بعد 2 ثانية
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 2000);
+    } finally {
+      setModalVisible(true); // عرض المودال أثناء معالجة النتيجة
+    }
+  };
+
+  console.log(cart.map((product) => product.quantity));
   return (
     <Row className="p-4">
-      <Helmet>
-        <title>DealHunt - Cart</title>
-      </Helmet>
-
-      {/* Cart Items Section */}
       <Col xs={24} md={18} className="p-4">
         <Title level={4}>
           Cart{" "}
@@ -396,9 +125,9 @@ export default function Cart() {
               key={product.id}
               product={product}
               removeProduct={() => removeFromCart(product.id)}
-              updateQuantity={(quantity) =>
-                updateQuantity(product.id, quantity)
-              }
+              updateQuantity={(quantity) => {
+                updateQuantity(product.id, quantity);
+              }}
             />
           ))
         ) : (
@@ -406,7 +135,6 @@ export default function Cart() {
         )}
       </Col>
 
-      {/* Order Summary Section */}
       <Col
         xs={24}
         md={6}
@@ -451,10 +179,28 @@ export default function Cart() {
             <Text strong>EGP {total.toFixed(2)}</Text>
           </Col>
         </Row>
-        <Button type="primary" block className="mt-4">
-          Checkout
+        <Button type="primary" block className="mt-4" onClick={handleOrder}>
+          Order Now
         </Button>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 1500, // مدة ظهور التوست (بالمللي ثانية)
+            style: {
+              background: "#fff", // لون خلفية التوست
+              color: "#64172b", // لون النص داخل التوست
+            },
+          }}
+        />
       </Col>
+      <Modal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        modalContent={modalContent}
+      />
     </Row>
   );
-}
+};
+
+export default Cart;

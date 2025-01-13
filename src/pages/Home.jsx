@@ -5,24 +5,25 @@ import CategorySlider from "../components/CategorySlider/CategorySlider";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion"; // استيراد Framer Motion
+import Title from "antd/es/typography/Title";
 
 const { Content } = Layout;
 
 export default function Home() {
   const [data, setData] = useState([]);
+  // const [categoryData, setCategoryData] = useState([]);
   const api = "http://127.0.0.1:8000/api/get/products";
-  // const api2 = "https://dummyjson.com/products";
+  // const api2 = "http://127.0.0.1:8000/api/getallcategories";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(api);
         const result = await response.json();
+        console.log(result);
         const productsWithCategoryName = result.map((product) => {
-          console.log(product);
           return {
             ...product,
-            category: { name: product.subcategoryid }, // Ensure category is an object
           };
         });
         setData(productsWithCategoryName);
@@ -30,6 +31,8 @@ export default function Home() {
         console.error("Error Fetching Data", error);
       }
     };
+
+    // fetchDataCAtegory();
     fetchData();
   }, []);
   console.log(data);
@@ -69,19 +72,24 @@ export default function Home() {
         >
           <CategorySlider />
         </motion.div>
+
         <div className="mt-4">
+          <Title level={3} className="text-center">
+            Featured Products
+          </Title>
           <Row gap={"10px"} justify="start">
             {data.length > 0 ? (
               data.map((product) => {
                 return (
                   <Col
-                    key={product.id}
+                    key={product.name}
                     xs={24}
                     sm={12}
                     md={8}
                     lg={5}
                     className="flex justify-center mb-3 gap-2 m-auto"
                   >
+                    {console.log(product.id)}
                     <motion.div
                       initial="hidden"
                       whileInView="visible"
@@ -96,7 +104,7 @@ export default function Home() {
               })
             ) : (
               <div className="flex justify-center items-center h-[50vh] w-full">
-                <Spin spinning={true} style={{ color: "red" }} size="large" />
+                <Spin spinning={true} className="custom-color" size="large" />
               </div>
             )}
           </Row>

@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import axios from "axios";
 // import { Link } from "react-router-dom";
 import Car from "../../assets/images/car.png";
+import { Link } from "react-router-dom";
 export default function CategorySlider() {
   const sliderRef = useRef(null);
   const [categories, setCategories] = useState([]);
@@ -21,7 +22,7 @@ export default function CategorySlider() {
 
   const scroll = (direction) => {
     if (sliderRef.current) {
-      const scrollAmount = direction === "left" ? -280 : 280;
+      const scrollAmount = direction === "left" ? -500 : 500; // Adjust scroll amount for 4 items
       sliderRef.current.scrollBy({
         left: scrollAmount,
         behavior: "smooth",
@@ -52,25 +53,28 @@ export default function CategorySlider() {
 
         <div
           ref={sliderRef}
-          className="flex overflow-x-auto gap-4 scrollbar-hide scroll-smooth pb-4 justify-between"
+          className="flex overflow-x-auto gap-4 scrollbar-hide scroll-smooth pb-4"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {categories.map((category) => (
             <div
-              key={category._id}
-              className="flex-shrink-0 cursor-pointer group row"
+              key={category.id}
+              className="flex-shrink-0 cursor-pointer group"
+              style={{ width: "calc(20% - 1rem)" }} // Adjust width for 4 items
             >
-              <div className="bg-[#2A2A2A] h-[200px] w-[200px] rounded-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-                <img
-                  src={Car}
-                  alt={category.catogoryname}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-                />
-                <h4 className="absolute bottom-3 left-3 text-white text-lg font-medium z-20">
-                  {category.catogoryname}
-                </h4>
-              </div>
+              <Link to={`/category/`}>
+                <div className="bg-[#2A2A2A] h-[200px] rounded-xl overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                  <img
+                    src={Car}
+                    alt={category.catogoryname}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <h4 className="absolute bottom-3 left-3 text-white text-lg font-medium z-20">
+                    {category.catogoryname}
+                  </h4>
+                </div>
+              </Link>
             </div>
           ))}
         </div>

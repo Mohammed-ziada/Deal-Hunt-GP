@@ -17,6 +17,7 @@ import PostProduct from "../components/MarketPlace/PostMarket";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import AddProductsUser from "../pages/AddProductsUser";
+import SwapPage from "../components/ProductPage/SwapPage";
 
 const routes = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const routes = createBrowserRouter([
       { path: "me", element: <ProfilePage /> },
       { path: "me/myorders", element: <MyOrders /> },
       { path: "postProduct", element: <PostProduct /> },
+      { path: "/swap", element: <SwapPage /> },
       { path: "*", element: <NotFound /> },
     ],
   },

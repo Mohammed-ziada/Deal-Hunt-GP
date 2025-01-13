@@ -1,97 +1,108 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import CategoryItem from "./CategoryItem";
 
-const CategoryFilter = ({ categories }) => {
+const CategoryFilter = ({ categories, setCategory, setSubcategory }) => {
+  const [subcategories, setSubcategories] = useState([]);
   const [expandedCategories, setExpandedCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null); // Added state to track selected category
 
-  const toggleCategory = (category) => {
+  // Fetch subcategories
+  useEffect(() => {
+    const fetchSubcategories = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/show/allsubcategory"
+        );
+        const result = await response.json();
+        // console.log(result);
+        setSubcategories(result);
+      } catch (error) {
+        console.error("Error fetching subcategories:", error);
+      }
+    };
+
+    fetchSubcategories();
+  }, []);
+
+  const toggleCategory = (categoryId) => {
     setExpandedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
+      prev.includes(categoryId)
+        ? prev.filter((c) => c !== categoryId)
+        : [...prev, categoryId]
     );
   };
 
-  const FilterSection = ({ title, children }) => (
-    <div className="border-b border-gray-200 py-4">
-      <div className="flex justify-between items-center mb-2">
-        <h3 className="text-sm font-medium text-gray-900">{title}</h3>
-      </div>
-      {children}
-    </div>
-  );
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId); // Set selected category
+    console.log(categoryId);
+    setCategory(categoryId);
+    setSubcategory("all"); // Reset subcategory when category is selected
+  };
 
   return (
-    <FilterSection title="Category">
-      <div className="space-y-1">
-        {/* {categories.map((category) => (
+    <div>
+      <CategoryItem
+        id="all"
+        name="All"
+        depth={0}
+        hasChildren={false}
+        expandedCategories={expandedCategories}
+        toggleCategory={() => {
+          setCategory("all");
+          setSubcategory("all");
+        }}
+        onClick={() => {
+          setCategory("all");
+          setSubcategory("all");
+        }}
+      />
+      {categories.map((category) => (
+        <div key={category.id}>
           <CategoryItem
-            key={category.name}
-            name={category.name}
-            depth={category.depth}
-            hasChildren={category.hasChildren}
+            id={category.id}
+            name={category.catogoryname}
+            depth={0}
+            hasChildren={true}
             expandedCategories={expandedCategories}
-            toggleCategory={toggleCategory}
+            toggleCategory={() => toggleCategory(category.id)}
+            onClick={() => handleCategoryClick(category.id)} // When category is clicked, set subcategories
           />
-        ))} */}
-        <CategoryItem
-          name="T-Shirts"
-          depth={0}
-          hasChildren={true}
-          expandedCategories={expandedCategories}
-          toggleCategory={toggleCategory}
-        />
-        {expandedCategories.includes("T-Shirts") && (
-          <>
-            <CategoryItem
-              name="Sub Category"
-              depth={1}
-              hasChildren={true}
-              expandedCategories={expandedCategories}
-              toggleCategory={toggleCategory}
-            />
-            {expandedCategories.includes("Sub Category") && (
-              <>
-                <CategoryItem
-                  name="Sub Sub Category"
-                  depth={2}
-                  hasChildren={true}
-                  expandedCategories={expandedCategories}
-                  toggleCategory={toggleCategory}
-                />
-                {expandedCategories.includes("Sub Sub Category") && (
+          {expandedCategories.includes(category.id) && (
+            <div className="ml-4">
+              {subcategories
+                .filter((subcategory) => subcategory.categoryid === category.id)
+                .map((subcategory) => (
                   <CategoryItem
-                    name="Sub Sub Sub Category"
-                    depth={3}
+                    key={subcategory.id}
+                    id={subcategory.id}
+                    name={subcategory.subcategoryname}
+                    depth={1}
+                    hasChildren={false}
                     expandedCategories={expandedCategories}
-                    toggleCategory={toggleCategory}
+                    toggleCategory={() => toggleCategory(subcategory.id)}
+                    onClick={() => {
+                      setSubcategory(subcategory.id);
+                    }}
                   />
-                )}
-              </>
-            )}
-          </>
-        )}
-        <CategoryItem
-          name="Mobiles"
-          depth={0}
-          hasChildren={true}
-          expandedCategories={expandedCategories}
-          toggleCategory={toggleCategory}
-        />
-      </div>
-    </FilterSection>
+                ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
 
 CategoryFilter.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      depth: PropTypes.number,
-      hasChildren: PropTypes.bool,
+      id: PropTypes.number.isRequired,
+      catogoryname: PropTypes.string.isRequired,
     })
   ).isRequired,
+  setCategory: PropTypes.func.isRequired,
+  setSubcategory: PropTypes.func.isRequired,
 };
 
 export default CategoryFilter;

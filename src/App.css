@@ -18,6 +18,44 @@
 .bg-ruby-9 {
   background-color: #e54666;
 }
+.bg-ruby-9:hover {
+  background-color: #e54666ce !important;
+}
 .text-ruby-9 {
   color: #e54666 !important;
+}
+.ant-spin-dot i {
+  color: #e54666;
+}
+.badgecolor {
+  background-color: rgba(255, 222, 0, 0.24);
+}
+.badgecolortext {
+  color: rgba(171, 100, 0, 1);
+}
+/* Custom CSS with Tailwind classes */
+.slick-dots li button:before {
+  color: #e54666ce; /* Tailwind red-500 */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #4299e1; /* Tailwind blue-500 */
+}
+
+.slick-prev,
+.slick-next {
+  color: #e54666ce !important; /* Tailwind red-500 */
+
+  width: 19px;
+  height: 17px;
+
+  opacity: 1 !important;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  padding: 0.6rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

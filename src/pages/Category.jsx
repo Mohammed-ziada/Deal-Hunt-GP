@@ -28,12 +28,58 @@ export default function Category() {
     fetchData();
   }, []);
 
+  // const handleApply = (
+  //   [minPrice = 0, maxPrice = 2999],
+  //   minRating = 0,
+  //   inStock = "In Stock",
+  //   timeRange = "all_time",
+  //   category = "all", // This is for category filtering (optional)
+  //   subcategory = "all" // This is for subcategory filtering (required)
+  // ) => {
+  //   const currentTime = new Date();
+
+  //   const newFilteredData = data.filter((product) => {
+  //     const productDate = new Date(product.updated_at);
+  //     const isWithinTimeRange = (() => {
+  //       switch (timeRange) {
+  //         case 7:
+  //           return (currentTime - productDate) / (1000 * 60 * 60 * 24) <= 7;
+  //         case 30:
+  //           return (currentTime - productDate) / (1000 * 60 * 60 * 24) <= 30;
+  //         case 90:
+  //           return (currentTime - productDate) / (1000 * 60 * 60 * 24) <= 90;
+  //         case "all_time":
+  //         default:
+  //           return true;
+  //       }
+  //     })();
+
+  //     return (
+  //       (minPrice === 0 || parseFloat(product.price) >= minPrice) &&
+  //       (maxPrice === 0 || parseFloat(product.price) <= maxPrice) &&
+  //       (minRating === 0 || product.ratingsQuantity >= minRating) &&
+  //       (inStock === "" || inStock === "In Stock"
+  //         ? product.quantity > 0
+  //         : true) &&
+  //       // Now filter by categoryid and subcategoryid
+  //       (category === "all" || product.categoryid === parseInt(category)) &&
+  //       (subcategory === "all" ||
+  //         product.subcategoryid === parseInt(subcategory)) &&
+  //       isWithinTimeRange
+  //     );
+  //   });
+
+  //   console.log("Filtered Products:", newFilteredData); // Debugging statement
+  //   setFilteredData(newFilteredData);
+  // };
+
   const handleApply = (
     [minPrice = 0, maxPrice = 2999],
     minRating = 0,
     inStock = "In Stock",
     timeRange = "all_time",
-    category = "all"
+    category = "all", // Category filtering
+    subcategory = "all" // Subcategory filtering
   ) => {
     const currentTime = new Date();
 
@@ -60,11 +106,14 @@ export default function Category() {
         (inStock === "" || inStock === "In Stock"
           ? product.quantity > 0
           : true) &&
-        (category === "all" || product.subcategoryid === category) &&
+        // Filter by subcategoryid (subcategory)
+        (subcategory === "all" ||
+          product.subcategoryid === parseInt(subcategory)) &&
         isWithinTimeRange
       );
     });
 
+    console.log("Filtered Products:", newFilteredData); // Debugging statement
     setFilteredData(newFilteredData);
   };
 
@@ -118,7 +167,7 @@ export default function Category() {
 
       {/* Product Grid */}
       <div className="col-span-12  lg:col-span-9">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 items-center justify-center">
           {isLoading ? (
             <motion.p
               initial={{ opacity: 0 }}
@@ -145,7 +194,7 @@ export default function Category() {
             ))
           ) : (
             <motion.div
-              className="flex flex-col items-center w-full gap-2"
+              className="flex flex-col items-center w-full gap-2 justify-center"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
